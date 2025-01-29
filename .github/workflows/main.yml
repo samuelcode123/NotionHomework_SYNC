@@ -1,0 +1,25 @@
+name: Run Python Script Every Hour
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # Läuft jede Stunde (zur vollen Stunde)
+  workflow_dispatch:  # Manuelles Starten ermöglichen
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository klonen
+        uses: actions/checkout@v4
+
+      - name: Python installieren
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Abhängigkeiten installieren
+        run: pip install -r requirements.txt  # Falls dein Skript Bibliotheken benötigt
+
+      - name: Skript ausführen
+        run: python crawler.py  # Ersetze mit dem Namen deines Skripts
