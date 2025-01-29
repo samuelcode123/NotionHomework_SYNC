@@ -19,7 +19,7 @@ jobs:
           python-version: "3.x"
 
       - name: Abhängigkeiten installieren
-        run: pip install -r requirements.txt  # Falls dein Skript Bibliotheken benötigt
+        run: pip install -r NotionHomework_Sync/requirements.txt  # Falls dein Skript Bibliotheken benötigt
 
       - name: Skript ausführen
-        run: python crawler.py  # Ersetze mit dem Namen deines Skripts
+        run: python NotionHomework_Sync/crawler.py  # Ersetze mit dem Namen deines Skripts
