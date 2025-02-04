@@ -2,8 +2,12 @@ name: Run Python Script Every Hour
 
 on:
   schedule:
-    - cron: "0 * * * *"  # Läuft jede Stunde (zur vollen Stunde)
-  workflow_dispatch:  # Manuelles Starten ermöglichen
+    - cron: '30 9 * * *'  # Jeden Tag um 09:30 Uhr
+    - cron: '20 11 * * *' # Jeden Tag um 11:20 Uhr
+    - cron: '15 12 * * *' # Jeden Tag um 12:15 Uhr
+    - cron: '55 12 * * *' # Jeden Tag um 12:55 Uhr
+    - cron: '0 14 * * *'  # Jeden Tag um 14:00 Uhr
+    - cron: '0 15 * * *'  # Jeden Tag um 15:00 Uhr
 
 jobs:
   run-script:
