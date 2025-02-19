@@ -32,6 +32,24 @@ class_tests = []
 # Get today's date
 today = datetime.now()
 
+subject_abbreviations = {
+    "Mathematik": "M",
+    "Deutsch": "D",
+    "Englisch": "E",
+    "Biologie": "Bio",
+    "Chemie": "Ch",
+    "Physik": "Ph",
+    "Geschichte": "G",
+    "Geographie": "Geo",
+    "Kunst": "BK",
+    "Sport": "Spo",
+    "Informationstechnik": "IT",
+    "Dogmatik": "D",
+    "Gemeinschaftskunde": "GK",
+    "WBS": "WBS",
+    'Diakonie in Aktion': 'Dia',
+}
+
 # Class Tests
 for classTest in classTests:
     ad = classTest.additional_data
@@ -46,11 +64,12 @@ for classTest in classTests:
 
         if c_subject:
             c_subject = c_subject.replace('Klasse 9 A · ', '').strip()
+            c_subject = subject_abbreviations.get(c_subject, c_subject)
 
             if not c_title:
                 c_title = c_subject
 
-        c_title =  str(c_title)
+        c_title =  str(c_subject + ': ' + c_title)
 
         if c_date_str and c_title:
             try:
