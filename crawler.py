@@ -79,8 +79,6 @@ for classTest in classTests:
             except ValueError:
                 print(f"Invalid date format: {c_date_str}")
 
-print(class_tests)
-
 # Homework
 for hw in homework:
     additional_data = hw.additional_data
