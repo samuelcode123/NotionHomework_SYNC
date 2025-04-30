@@ -3,21 +3,28 @@ from datetime import datetime
 from edupage_api import Edupage
 from edupage_api.timeline import EventType
 from notion_client import Client
+import time
+from edupage_api.login import LoginException
 
-# Notion API Setup
-notion = Client(auth="ntn_K6086584265nF41A97FMtGd0LaKUDxJwhPUPOmMRTuqajl") # Homework
-notion_2 = Client(auth='ntn_A60865842656C0iLu4tUAtUB1OcjCbIY8cVWpN3uPx37vq') # Class Tests
-
-database_id = "18916ac9e7c98073b303dbc7a7c769b0" # Homework
-c_database_id = "a60a80800aa243acb76e83aca1431520" # Class Tests
-
-# Login to Edupage
+# Login to Edupage with retry
 edupage = Edupage()
-edupage.login(
-    "samuel.dueckmann",
-    "Agent_099",
-    "dbs",
-)
+max_retries = 5
+retry_delay = 5  # Sekunden warten zwischen den Versuchen
+
+for attempt in range(1, max_retries + 1):
+    try:
+        edupage.login(
+            "samuel.dueckmann",
+            "Agent_099",
+            "dbs",
+        )
+        print("Login erfolgreich!")
+        break  # Wenn Login klappt, Schleife beenden
+    except (LoginException, Exception) as e:
+        print(f"Login-Versuch {attempt} fehlgeschlagen: {e}")
+        if attempt == max_retries:
+            raise  # Nach letztem Versuch Fehler werfen
+        time.sleep(retry_delay)  # Warten und nochmal probieren
 
 notifications = edupage.get_notifications()
 
